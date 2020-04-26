@@ -1,0 +1,10 @@
+node_modules
+mock
+.eslintignore
+.eslintrc.js
+src
+rollup.config.js
+dist/index.js.map
+.eslintignore
+.eslintrc
+.gitignore
