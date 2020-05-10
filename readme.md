@@ -105,7 +105,10 @@ Available options and defaults:
 {
     "input"      : "api",
     "output"     : "build/api",
-    "middleware" : "middleware.js" // Path is relative to input so this would be (api/middleware.js)
+
+    // Middleware path is relative to input
+    // so thiswould be api/middleware.js.
+    "middleware" : "middleware.js" 
 }
 ```
 
