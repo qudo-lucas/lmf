@@ -1,4 +1,4 @@
-const route = require("./1587862232386_index.js");
+const route = require("./1589082019291_index.js");
 
 module.exports = async (req,res) => {
     // I will run before every route

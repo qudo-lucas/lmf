@@ -102,10 +102,10 @@ You can optionally add a ```lmf.config.json``` to the root of your project.
 
 Available options and defaults:
 ```javascript
-module.exports = {
-    input      : "api",
-    output     : "build/api",
-    middleware : "middleware.js"  
+{
+    "input"      : "api",
+    "output"     : "build/api",
+    "middleware" : "middleware.js" // Path is relative to input so this would be (api/middleware.js)
 }
 ```
 
