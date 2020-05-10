@@ -107,7 +107,7 @@ Available options and defaults:
     "output"     : "build/api",
 
     // Middleware path is relative to input
-    // so thiswould be api/middleware.js.
+    // so this would be api/middleware.js.
     "middleware" : "middleware.js" 
 }
 ```
