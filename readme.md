@@ -13,6 +13,7 @@ Just run ```lmf``` in your project root.
 Now CLI let's you specify a pre-build script in your package.json like so:
 ```javascript
 // package.json
+
 {
     "scripts" : {
         "now-build" : "lmf"
@@ -24,6 +25,7 @@ Now CLI let's you specify a pre-build script in your package.json like so:
 Here's a simple Rollup plugin that will execute a npm script on every build.
 ```javascript
 // package.json
+
 {
     "scripts" : {
         "build:api" : "lmf"
@@ -32,6 +34,7 @@ Here's a simple Rollup plugin that will execute a npm script on every build.
 ```
 ```javascript
 // rollup.config.js
+
 const rollupPluginBuildAPI = () => ({
     writeBundle() {
         require("child_process").spawn("npm", [ "run", "build:api" ], {
@@ -52,6 +55,8 @@ export default {
 ## **Middleware File**
 Your middlware file must require and call "route" to work properly. By default, LMF assumes your middleware file is located at `./api/middleware.js`.
 ```javascript
+// api/middleware.js
+
 const route = require("route");
 
 module.exports = async (req,res) => {
@@ -86,12 +91,15 @@ LMF will read your API and directly copy it to the specified output directory. Y
 #### **Before**
 ```javascript
 // api/posts.js
+
 module.exports = (req, res) => {
     // Route  code
 }
 
 ```
 ```javascript
+// api/middleware.js
+
 // This will be replaced with a reference to the current route
 const route = require("route");
 
@@ -111,6 +119,8 @@ module.exports = async (req,res) => {
 #### **After**
 Serverless functions are renamed and prefixed with "_lmf."
 ```javascript
+// api/posts.js -> api/_lmf.posts.js
+
 module.exports = (req, res) => {
     // Route code
 }
@@ -119,6 +129,8 @@ module.exports = (req, res) => {
 
 The contents of middleware are written to a file next to the original function and named as the original functions name. This is now your route's entry point. 
 ```javascript
+// api/middleware.js -> api/posts.js
+
 // Reference updated
 const route = require("./_lmf.posts.js");
 
