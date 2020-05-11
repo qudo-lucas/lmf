@@ -1,6 +1,6 @@
 {
   "name": "lmf",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "",
   "main": "dist/index.js",
   "bin": {
@@ -18,14 +18,14 @@
     "build:mock": "npm run build --prefix mock"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/qudo-lucas/lmf"
+    "type": "git",
+    "url": "https://github.com/qudo-lucas/lmf"
   },
   "contributors": [
     {
-      "name" : "Lucas Hugdahl",
-      "email" : "lucashugdahl@gmail.com",
-      "url" : "https://lucashugdahl.com"
+      "name": "Lucas Hugdahl",
+      "email": "lucashugdahl@gmail.com",
+      "url": "https://lucashugdahl.com"
     }
   ],
   "license": "ISC",
