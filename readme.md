@@ -7,7 +7,22 @@ Have you ever wished there was an easy way to have a function run before every r
 
 ## **Usage**
 ### **CLI**
-Just run ```lmf``` in your project root.
+Run `lmf` in your project root.
+
+#### Suggested usage
+Once you have installed `lmf` as a dev dependency, add a new build script so you can easily call it.
+```javascript
+// package.json
+
+{
+    "scripts" : {
+        "build:api" : "lmf"
+    }
+}
+```
+```bash
+$ npm run build:api
+```
 
 ### **Use with Vercel**
 Now CLI let's you specify a pre-build script in your package.json like so:
@@ -161,7 +176,7 @@ api/
 ## **Config**
 You can optionally add a ```lmf.config.json``` to the root of your project.
 
-Available options and defaults:
+#### Options and defaults
 ```javascript
 {
     // Relative to project root
