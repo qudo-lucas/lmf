@@ -78,8 +78,7 @@ module.exports = (req, res) => {
 
 **api/middleware.js --> api/posts.js**
 
-
-Middleware is then renamed as the original function and it's require has also been updated to reference the new name of the original function.
+The contents of middleware are written to a file next to the original function and named as the original functions name. This is now your route's entry point. 
 ```javascript
 // Reference updated
 const route = require("./_lmf.posts.js");
@@ -91,7 +90,7 @@ module.exports = async (req,res) => {
     req.env = "prod";
     req.token = "xxx-xxx-xxx";
     
-    // Finally, execute the current route
+    // Finally, execute the referenced route
     return await route(req, res)
 }
 ```
