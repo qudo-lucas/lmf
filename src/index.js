@@ -43,7 +43,11 @@ const loadConfig = async () => {
     }
 };
 
+// eslint-disable-next-line max-statements
 (async () => {
+    const startTime = Date.now();
+    
+    console.log("LMF : Building...");
     try {
         const routeFiles = {};
         let middleware = {};
@@ -66,8 +70,6 @@ const loadConfig = async () => {
                 // Only add non underscore js files to bundle
                 const ignore = () => src.split("/").some((segment) => segment.startsWith("_"));
                 const isMiddleware = () => src.replace(`${INPUT}/`, "") === MIDDLEWARE_PATH;
-
-                console.log(isMiddleware());
                     
                 if(isMiddleware()) {
                     middleware = await readFile(src);
@@ -90,16 +92,16 @@ const loadConfig = async () => {
         // Write original route code in a file next to the original file named xxxxx_name.js
         // Smash on top of original file with middleware and update reference to route.
         await Promise.all(Object.entries(routes).map(([ path, { name, code }], index) => {
-            const hashName = `${Date.now() + index}_${name}`;
-            const modifiedMiddleware = middleware.toString().replace("require(\"route\")", `require("./_${hashName}")`);
-            
-            console.log(path);
+            const newName = `_lmf.${name}`;
+            const modifiedMiddleware = middleware.toString().replace("require(\"route\")", `require("./_${newName}")`);
 
             return Promise.all([
                 writeFile(path, modifiedMiddleware),
-                writeFile(`${dir(path)}/_${hashName}`, code),
+                writeFile(`${dir(path)}/${newName}`, code),
             ]);
         }));
+        
+        console.log(`LMF : Complete in ${Date.now() - startTime}ms`);
 
         process.exit();
     } catch(err) {

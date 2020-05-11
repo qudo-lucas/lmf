@@ -1,4 +1,4 @@
-const route = require("./_1589084315542_create.js");
+const route = require("./__lmf.create.js");
 
 module.exports = async (req,res) => {
     // I will run before every route
