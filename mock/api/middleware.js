@@ -1,4 +1,4 @@
-const route = require("route");
+const route = require("[route]");
 const config = require("*_config/_config.js");
 const utils = require("*_utils/_config.js");
 

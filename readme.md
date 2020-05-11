@@ -67,32 +67,28 @@ export default {
 
 ```
 
-## **Middleware File**
-#### **Require [route]**
-Your middlware file must require and call "[route]" to work properly.
-
-
-
-### #**Calling [route]**
-This value will consist of the current serverless function. Make sure you call it at some point in your middleware so that your function is executed. 
-
-
-
+## **Middleware**
 #### **File location**
 By default, LMF assumes your middleware file is located at `./api/middleware.js`. You can update this in the config mention below.
 
+#### **File contents**
+Your middleware file ends up becoming the entry point to every serverless function. Therefore, it needs to be setup as if it were a serverless function. Export an object and recieve the `req` and `res`. See example.
 
+#### **Require [route]**
+Middleware must require "[route]" so you can use it in the next step. 
+
+#### **Calling [route]**
+This value will consist of the current serverless function. Make sure you call it at some point in your middleware so that your function is executed. 
 
 #### **Referencing local files**
-When you reference a local file in middleware it must be prefixed with a "*". LMF will replace the "*" with the correct navigation to the file. 
-
-
+When you reference a local file in middleware it must be prefixed with "\*". LMF will replace the "\*" with the correct navigation to the file. 
 
 #### **Example**
 
 ```javascript
 // api/middleware.js
 
+// Current route
 const route = require("[route]");
 
 // Local file reference
@@ -105,7 +101,7 @@ module.exports = async (req,res) => {
     req.env = "prod";
     req.token = "xxx-xxx-xxx";
     
-    // Finally, execute the route function
+    // Finally, execute the route
     return await route(req, res);
 }
 ```
@@ -140,7 +136,7 @@ module.exports = (req, res) => {
 // api/middleware.js
 
 // This will be replaced with a reference to the current route
-const route = require("route");
+const route = require("[route]");
 
 module.exports = async (req,res) => {
     // Will run before every route
@@ -149,7 +145,7 @@ module.exports = async (req,res) => {
     req.env = "prod";
     req.token = "xxx-xxx-xxx";
     
-    // Finally, execute the route code
+    // Finally, execute the route
     return await route(req, res);
 }
 ```
