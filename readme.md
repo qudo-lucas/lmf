@@ -30,7 +30,7 @@ api/
 ```
 
 ## **Transformation**
-LMF will read your API, directly copy it to the specified output directory. Your middleware file then ends up becoming the actual route that references your original function. See below:
+LMF will read your API and directly copy it to the specified output directory. Your middleware file then ends up becoming the actual route that references your original function. See below:
 
 **Note:** Files and folders prefixed with "_" will be ignored.*
 
@@ -53,6 +53,7 @@ const route = require("route");
 module.exports = async (req,res) => {
     // Will run before every route
 
+    // Do some middlewarey ish
     req.env = "prod";
     req.token = "xxx-xxx-xxx";
     
@@ -86,6 +87,7 @@ const route = require("./_lmf.posts.js");
 module.exports = async (req,res) => {
     // I will run before every route
 
+    // That middlewarey ish
     req.env = "prod";
     req.token = "xxx-xxx-xxx";
     
