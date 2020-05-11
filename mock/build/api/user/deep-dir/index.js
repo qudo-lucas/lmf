@@ -1,4 +1,4 @@
-const route = require("./__lmf.index.js");
+const route = require("./_lmf.index.js");
 
 module.exports = async (req,res) => {
     // I will run before every route

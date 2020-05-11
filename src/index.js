@@ -93,7 +93,7 @@ const loadConfig = async () => {
         // Smash on top of original file with middleware and update reference to route.
         await Promise.all(Object.entries(routes).map(([ path, { name, code }], index) => {
             const newName = `_lmf.${name}`;
-            const modifiedMiddleware = middleware.toString().replace("require(\"route\")", `require("./_${newName}")`);
+            const modifiedMiddleware = middleware.toString().replace("require(\"route\")", `require("./${newName}")`);
 
             return Promise.all([
                 writeFile(path, modifiedMiddleware),
