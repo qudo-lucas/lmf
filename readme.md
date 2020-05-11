@@ -11,14 +11,62 @@ Just run ```lmf``` in your project root.
 ### **Use with Vercel**
 Now CLI let's you specify a pre-build script in your package.json like so:
 ```javascript
-"scripts" : {
-    "now-build" : "lmf"
+// package.json
+{
+    "scripts" : {
+        "now-build" : "lmf"
+    }
 }
 ```
 
+### **Use with Rollup**
+Here's a simple Rollup plugin that will execute a npm script on every build.
+```javascript
+// package.json
+{
+    "scripts" : {
+        "build:api" : "lmf"
+    }
+}
+```
+```javascript
+// rollup.config.js
+const rollupPluginBuildAPI = () => ({
+    writeBundle() {
+        require("child_process").spawn("npm", [ "run", "build:api" ], {
+            stdio : [ "ignore", "inherit", "inherit" ],
+            shell : true,
+        });
+    },
+});
+
+export default {
+    plugins : [
+        rollupPluginBuildAPI()
+    ]
+}
+
+```
+
+## **Middleware File**
+Your middlware file must require and call "route" to work properly. By default, LMF assumes your middleware file is located at `./api/middleware.js`.
+```javascript
+const route = require("route");
+
+module.exports = async (req,res) => {
+    // Will run before every route
+
+    // Do some middlewarey ish
+    req.env = "prod";
+    req.token = "xxx-xxx-xxx";
+    
+    // Finally, execute the route function
+    return await route(req, res);
+}
+```
 
 ## **How it works**
-Lets say you have the following files in your API. Some folders, some files, some underscore directories/files.
+Lets say you have the following files in your API. Some folders, some files, some underscore directories/files. By default, LMF assumes your code lives in `./api`.
 
 ```
 api/
@@ -29,14 +77,12 @@ api/
 └── middleware.js
 ```
 
-## **Transformation**
+#### **Transformation**
 LMF will read your API and directly copy it to the specified output directory. Your middleware file then ends up becoming the actual route that references your original function. See below:
 
 **Note:** Files and folders prefixed with "_" will be ignored.*
 
-### **Before:**
-
-**api/posts.js**
+#### **Before**
 ```javascript
 // api/posts.js
 module.exports = (req, res) => {
@@ -44,8 +90,6 @@ module.exports = (req, res) => {
 }
 
 ```
-
-**api/middleware.js**
 ```javascript
 // This will be replaced with a reference to the current route
 const route = require("route");
@@ -58,16 +102,12 @@ module.exports = async (req,res) => {
     req.token = "xxx-xxx-xxx";
     
     // Finally, execute the route code
-    return await route(req, res)
+    return await route(req, res);
 }
 ```
 
 
-### **After:**
-
-
-**api/posts.js --> api/_lmf.posts.js**
-
+#### **After**
 Serverless functions are renamed and prefixed with "_lmf."
 ```javascript
 module.exports = (req, res) => {
@@ -75,8 +115,6 @@ module.exports = (req, res) => {
 }
 
 ```
-
-**api/middleware.js --> api/posts.js**
 
 The contents of middleware are written to a file next to the original function and named as the original functions name. This is now your route's entry point. 
 ```javascript
@@ -91,12 +129,9 @@ module.exports = async (req,res) => {
     req.token = "xxx-xxx-xxx";
     
     // Finally, execute the referenced route
-    return await route(req, res)
+    return await route(req, res);
 }
 ```
-
-
-
 
 ## **Output**
 Ready to serve!
@@ -120,6 +155,7 @@ Available options and defaults:
     "input"      : "api",
     "output"     : "build/api",
 
+    // Path to your middleware file.
     // Middleware path is relative to input
     // so this would be api/middleware.js.
     "middleware" : "middleware.js" 
