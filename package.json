@@ -21,13 +21,11 @@
     "type": "git",
     "url": "https://github.com/qudo-lucas/lmf"
   },
-  "contributors": [
-    {
+  "author": {
       "name": "Lucas Hugdahl",
       "email": "lucashugdahl@gmail.com",
       "url": "https://lucashugdahl.com"
-    }
-  ],
+  },
   "license": "ISC",
   "dependencies": {
     "fs-extra": "^9.0.0"
