@@ -17,7 +17,17 @@
     "build": "rollup -c && npm run build:mock",
     "build:mock": "npm run build --prefix mock"
   },
-  "author": "",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/qudo-lucas/lmf"
+  },
+  "contributors": [
+    {
+      "name" : "Lucas Hugdahl",
+      "email" : "lucashugdahl@gmail.com",
+      "url" : "https://lucashugdahl.com"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "fs-extra": "^9.0.0"
