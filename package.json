@@ -1,6 +1,6 @@
 {
   "name": "lmf",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "",
   "main": "dist/index.js",
   "bin": {
@@ -22,9 +22,9 @@
     "url": "https://github.com/qudo-lucas/lmf"
   },
   "author": {
-      "name": "Lucas Hugdahl",
-      "email": "lucashugdahl@gmail.com",
-      "url": "https://lucashugdahl.com"
+    "name": "Lucas Hugdahl",
+    "email": "lucashugdahl@gmail.com",
+    "url": "https://lucashugdahl.com"
   },
   "license": "ISC",
   "dependencies": {
