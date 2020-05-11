@@ -142,7 +142,7 @@ module.exports = (req, res) => {
 
 ```
 
-The contents of middleware are written to a file next to the original function and named as the original functions name. This is now your route's entry point. 
+The contents of middleware are written to a new file next to the original function. The new middleware file takes on the original name of your function and references the updated name. 
 ```javascript
 // api/middleware.js -> api/posts.js
 
