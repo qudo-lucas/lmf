@@ -6,6 +6,7 @@ Have you ever wished there was an easy way to have a function run before every r
 ```npm install lmf --save-dev```
 
 ## **Usage**
+### **CLI**
 Just run ```lmf``` in your project root.
 
 ### **Use with Vercel**
