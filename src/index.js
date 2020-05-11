@@ -8,6 +8,9 @@ const name = (path) => path.split("/").reverse()[0];
 // Get parent dir of filepath
 const dir = (path) => path.replace(name(path), "");
 
+// Remove leading slashes
+const clean = (str) => str.replace(/^\/+/, "");
+
 const generate = async (bundle) => {
     const keys = Object.keys(bundle);
     const values = Object.values(bundle);
@@ -93,7 +96,20 @@ const loadConfig = async () => {
         // Smash on top of original file with middleware and update reference to route.
         await Promise.all(Object.entries(routes).map(([ path, { name, code }], index) => {
             const newName = `_lmf.${name}`;
-            const modifiedMiddleware = middleware.toString().replace("require(\"route\")", `require("./${newName}")`);
+            let modifiedMiddleware = middleware.toString().replace("require(\"route\")", `require("./${newName}")`);
+
+            const fileReferences = modifiedMiddleware.match(/require\(\"\*(.*?)\"\)/g);
+            
+            let newRef;
+            let level;
+            const filePath = clean(path.replace(OUTPUT, ""));
+
+            fileReferences.forEach((ref) => {
+                level = (filePath.match(/\//g) || []).length;
+                newRef = level ? ref.replace("*", "../".repeat(level)) : ref.replace("*", "./");
+
+                modifiedMiddleware = modifiedMiddleware.replace(ref, newRef);
+            });
 
             return Promise.all([
                 writeFile(path, modifiedMiddleware),

@@ -68,11 +68,35 @@ export default {
 ```
 
 ## **Middleware File**
-Your middlware file must require and call "route" to work properly. By default, LMF assumes your middleware file is located at `./api/middleware.js`.
+#### **Require [route]**
+Your middlware file must require and call "[route]" to work properly.
+
+
+
+### #**Calling [route]**
+This value will consist of the current serverless function. Make sure you call it at some point in your middleware so that your function is executed. 
+
+
+
+#### **File location**
+By default, LMF assumes your middleware file is located at `./api/middleware.js`. You can update this in the config mention below.
+
+
+
+#### **Referencing local files**
+When you reference a local file in middleware it must be prefixed with a "*". LMF will replace the "*" with the correct navigation to the file. 
+
+
+
+#### **Example**
+
 ```javascript
 // api/middleware.js
 
-const route = require("route");
+const route = require("[route]");
+
+// Local file reference
+const config = require("*./_util/config.js");
 
 module.exports = async (req,res) => {
     // Will run before every route
