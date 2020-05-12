@@ -215,7 +215,7 @@ api/
 ```
 
 ## **Config**
-You can optionally add a ```lmf.config.jCLEAN_OUTPUTson``` to the root of your project.
+You can optionally add a ```lmf.config.json``` to the root of your project.
 
 #### Options and defaults
 ```javascript
