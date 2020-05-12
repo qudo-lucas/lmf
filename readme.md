@@ -31,7 +31,7 @@ Install these two packages:
 
 **onchange:** Let's us run a script whenever a certain directory changes.
 
-**concurrently:** Makes it easy to run two processes at the same time. Used to start autobuild as well as kick off your dev server
+**concurrently:** Makes it easy to run two processes at the same time. Will be used to start autobuild as well as kick off your dev server.
 
 
 ```javascript
