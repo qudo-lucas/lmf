@@ -54,7 +54,7 @@ Install these two packages:
 }
 ```
 ```bash
-$ npm run build:api
+$ npm run dev
 ```
 
 ### **Use with Rollup**
@@ -142,7 +142,7 @@ api/
 #### **Transformation**
 LMF will read your API and directly copy it to the specified output directory. Your middleware file then ends up becoming the actual route that references your original function. See below:
 
-**Note:** Files and folders prefixed with "_" will be ignored.*
+**Note:** Files and folders prefixed with "_" will be ignored.
 
 #### **Before**
 ```javascript
@@ -157,7 +157,7 @@ module.exports = (req, res) => {
 // api/middleware.js
 
 // This will be replaced with a reference to the current route
-const route = require("{route}");
+const route = require({route});
 
 module.exports = async (req,res) => {
     // Will run before every route
