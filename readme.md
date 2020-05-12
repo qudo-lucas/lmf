@@ -9,7 +9,7 @@ Have you ever wished there was an easy way to have a function run before every r
 ### **CLI**
 Run `lmf` in your project root.
 
-#### Suggested usage
+#### Setting up a build script
 Once you have installed `lmf` as a dev dependency, add a new build script so you can easily call it.
 ```javascript
 // package.json
@@ -24,7 +24,40 @@ Once you have installed `lmf` as a dev dependency, add a new build script so you
 $ npm run build:api
 ```
 
-### **Use with Vercel**
+#### Setting up an autobuild + serve script
+Install these two packages:
+
+`npm install --save-dev concurrently onchange`
+
+**onchange:** Let's us run a script whenever a certain directory changes.
+
+**concurrently:** Makes it easy to run two processes at the same time. Used to start autobuild as well as kick off your dev server
+
+
+```javascript
+// package.json
+
+{
+    "scripts" : {
+        // Basic build
+        "build:api" : "lmf",
+
+        // Watch the "api" directory and rebuild on any changes
+        "watch:api" : "npm run build:api && onchange api -- npm run build:api",
+        
+        // Whatever your serve command is. We are using Now CLI.
+        "serve"     : "now dev",
+
+        // All together now
+        "dev"       : "concurrently 'npm run watch:api' 'npm run serve'"
+    }
+}
+```
+```bash
+$ npm run build:api
+```
+
+### **Use **
 Now CLI let's you specify a pre-build script in your package.json like so:
 ```javascript
 // package.json
@@ -77,7 +110,7 @@ Your middleware file ends up becoming the entry point to every serverless functi
 #### **Require [route]**
 Middleware must require "[route]" so you can use it in the next step. 
 
-#### **Calling [route]**
+#### **Calling {route}**
 This value will consist of the current serverless function. Make sure you call it at some point in your middleware so that your function is executed. 
 
 #### **Referencing local files**
@@ -89,7 +122,7 @@ When you reference a local file in middleware it must be prefixed with "\*". LMF
 // api/middleware.js
 
 // Current route
-const route = require("[route]");
+const route = require({route});
 
 // Local file reference
 const config = require("*./_util/config.js");
@@ -136,7 +169,7 @@ module.exports = (req, res) => {
 // api/middleware.js
 
 // This will be replaced with a reference to the current route
-const route = require("[route]");
+const route = require("{route}");
 
 module.exports = async (req,res) => {
     // Will run before every route
@@ -194,7 +227,7 @@ api/
 ```
 
 ## **Config**
-You can optionally add a ```lmf.config.json``` to the root of your project.
+You can optionally add a ```lmf.config.jCLEAN_OUTPUTson``` to the root of your project.
 
 #### Options and defaults
 ```javascript
@@ -206,7 +239,10 @@ You can optionally add a ```lmf.config.json``` to the root of your project.
     // Path to your middleware file.
     // Middleware path is relative to input
     // so this would be api/middleware.js.
-    "middleware" : "middleware.js" 
+    "middleware" : "middleware.js",
+
+    // Delete output directory before every build
+    "clean":     : false
 }
 ```
 

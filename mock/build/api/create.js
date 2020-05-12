@@ -1,6 +1,9 @@
 const route = require("./_lmf.create.js");
 const config = require("./_config/_config.js");
-const utils = require("./_utils/_config.js");
+const configTwo = require('./_config/_config.js');
+import configThree from "./_config/_config.js";
+import configFour from './_config/_config.js';
+
 
 module.exports = async (req,res) => {
     // I will run before every route
