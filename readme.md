@@ -114,7 +114,7 @@ Middleware must require "[route]" so you can use it in the next step.
 This value will consist of the current serverless function. Make sure you call it at some point in your middleware so that your function is executed. 
 
 #### **Referencing local files**
-When you reference a local file in middleware it must be prefixed with "\*". LMF will replace the "\*" with the correct navigation to the file. 
+When referencing local files in middleware, you must use the "\*" alias which represents the root of your input directory. LMF will replace all of the "\*" references with the correct navigation to the local file. For instance, `require("*_util/config.js")` might become `require("../../_util/config.js")`.
 
 #### **Example**
 
@@ -124,8 +124,8 @@ When you reference a local file in middleware it must be prefixed with "\*". LMF
 // Current route
 const route = require({route});
 
-// Local file reference
-const config = require("*./_util/config.js");
+// Local file reference must start with "*"
+const config = require("*_util/config.js");
 
 module.exports = async (req,res) => {
     // Will run before every route
