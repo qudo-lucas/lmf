@@ -57,18 +57,6 @@ Install these two packages:
 $ npm run build:api
 ```
 
-### **Use **
-Now CLI let's you specify a pre-build script in your package.json like so:
-```javascript
-// package.json
-
-{
-    "scripts" : {
-        "now-build" : "lmf"
-    }
-}
-```
-
 ### **Use with Rollup**
 Here's a simple Rollup plugin that will execute a npm script on every build.
 ```javascript
@@ -107,8 +95,8 @@ By default, LMF assumes your middleware file is located at `./api/middleware.js`
 #### **File contents**
 Your middleware file ends up becoming the entry point to every serverless function. Therefore, it needs to be setup as if it were a serverless function. Export an object and recieve the `req` and `res`. See example.
 
-#### **Require [route]**
-Middleware must require "[route]" so you can use it in the next step. 
+#### **Require {route}**
+Middleware must require "{route}" so you can use it in the next step. 
 
 #### **Calling {route}**
 This value will consist of the current serverless function. Make sure you call it at some point in your middleware so that your function is executed. 
